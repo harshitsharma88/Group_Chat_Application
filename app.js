@@ -24,7 +24,7 @@ app.use('/',userLoginRoute);
 
 // sequelize.sync()
 // .then(()=>{
-    app.listen(PORT,()=>{
+    app.listen(3000,()=>{
         console.log(`Listening on Port: ${PORT}`);
     })
 
