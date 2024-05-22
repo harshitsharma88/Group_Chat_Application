@@ -1,13 +1,13 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: rgba(154, 80, 11, 0.466);
+    background-color: rgba(154, 80, 11, 0.3); /* Lighter body color */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Ensure the body covers the entire viewport height */
     box-sizing: border-box;
   }
   
@@ -18,7 +18,7 @@ body {
     max-width: 1200px;
     background-color: grey;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Increased shadow visibility */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Adjusted shadow visibility */
     padding: 20px;
     box-sizing: border-box;
   }
