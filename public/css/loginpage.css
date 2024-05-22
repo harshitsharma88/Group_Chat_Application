@@ -1,0 +1,99 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(154, 80, 11, 0.466);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  .outer-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 1200px;
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Increased shadow visibility */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  @media (min-width: 768px) {
+    .outer-container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  
+  /* Form Container Styles */
+  .login-container, .signup-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: grey; /* Same as outer container */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(105, 105, 105, 0.8); /* Darker and more visible shadow */
+  }
+  
+  @media (min-width: 768px) {
+    .login-container, .signup-container {
+      width: 48%;
+    }
+  
+    .login-container {
+      border-right: 5px solid rgba(154, 80, 11, 0.895); /* Thick line same as body color */
+    }
+  }
+  
+  /* Form Styles */
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  label {
+    width: 100%;
+    margin: 10px 0 5px;
+    color: #666;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    padding: 10px 15px;
+    background-color: rgba(154, 80, 11, 0.895);
+    color: #fff;
+    border: none;
+    border-radius: 10px; /* Increased border radius */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: rgba(104, 30, 0, 0.895);
+    box-shadow: 0 0 15px rgba(211, 211, 211, 0.8); /* Increased shadow visibility */
+  }
+  
