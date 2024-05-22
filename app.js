@@ -18,16 +18,16 @@ app.use('/',userLoginRoute);
 
 
 //////////--Database--//////////////
-const sequelize=require('./utils/database');
+// const sequelize=require('./utils/database');
 
 
 
-sequelize.sync()
-.then(()=>{
+// sequelize.sync()
+// .then(()=>{
     app.listen(PORT,()=>{
         console.log(`Listening on Port: ${PORT}`);
     })
 
-})
+// })
 
 
