@@ -16,12 +16,15 @@ app.use(express.static('public'));
 
 /////////---Routes---///////////////
 const userLoginRoute=require('./routes/userLoginRoute');
+const chatPageRoute= require('./routes/chatPageRoute');
 
 
 
 
 ////////---request-handling---//////
 app.use('/',userLoginRoute);
+app.use('/chatpage',chatPageRoute);
+
 
 
 

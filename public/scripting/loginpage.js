@@ -15,7 +15,7 @@ async function handleSignup(event){
     console.log(obj);
 
     try {
-       const res= await axios.post('http://localhost:3000/signup',obj);
+       const res= await axios.post('http://50.16.9.194/signup',obj);
        console.log(res);
         alert(res.data.message);
         
@@ -44,9 +44,14 @@ async function handleLogin(event){
 
 
     try {
-        const res= await axios.post('http://localhost:3000/login',obj);
+        const res= await axios.post('http://50.16.9.194/login',obj);
         console.log(res);
-        alert(res.data.message);
+        
+        localStorage.setItem("token",res.data.token);
+        localStorage.setItem("username",res.data.username);
+        event.target.loginEmail.value="";
+        event.target.loginPassword.value="";
+        location.href='/chatpage'
         
     } catch (error) {
 

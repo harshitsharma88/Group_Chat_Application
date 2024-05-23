@@ -61,7 +61,7 @@ const login=async(req,res,next)=>{
                     res.status(500).json(error)
                 }
                 if(result){
-                    res.status(200).json({message:"Logged in Successfully",token:generateJWTid({id:user.id})})
+                    res.status(200).json({message:"Logged in Successfully",token:generateJWTid({id:user.id}),username:user.name})
                 }
                 else{
                     res.status(400).json({message:"Incorrect Password"})
