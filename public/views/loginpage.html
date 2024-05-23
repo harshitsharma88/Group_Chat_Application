@@ -9,24 +9,26 @@
 <body>
     <div class="outer-container">
         <div class="login-container">
-            <form class='login-form' action="">
+            <form class='login-form' onsubmit="handleLogin(event)">
                 <p id="login-p">Login</p>
-                <input type="email" id="login-email" placeholder="Email" required/>
-                <input type="password" id="login-password" placeholder="Password" required/>
+                <input name="loginEmail" type="email" id="login-email" placeholder="Email" required/>
+                <input name="loginPassword" type="password" id="login-password" placeholder="Password" required/>
                 <button id="login-submit" type="submit">Login</button>
                 <a href="">Forgot Password?</a>
             </form>
         </div>
         <div class="signup-container">
-            <form class='signup-form' action="">
+            <form class='signup-form' onsubmit="handleSignup(event)">
                 <p  id="signup-p">Signup now</p>
-                <input type="text" placeholder="Name" required/>
-                <input type="email" id="signup-email" placeholder="Email" required/>
-                <input type="number" id="signup-phone" placeholder="Phone" required/>
-                <input type="password" id="signup-password" placeholder="Password" required/>
-                <button id="login-submit" type="submit">Sign up</button>
+                <input name='signupName' type="text" placeholder="Name" required/>
+                <input name='signupEmail' type="email" id="signup-email" placeholder="Email" required/>
+                <input name='signupPhone' type="number" id="signup-phone" placeholder="Phone" required/>
+                <input name='signupPassword' type="password" id="signup-password" placeholder="Password" required/>
+                <button id="signup-submit" type="submit">Sign up</button>
             </form>
         </div>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+<script src="/scripting/loginpage.js"></script>
 </html>
