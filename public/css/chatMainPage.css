@@ -77,7 +77,7 @@ body {
   main {
     display: flex;
     height: calc(100vh - 45px);
-    margin-top: 59px;
+    margin-top: 57px;
   }
   
   aside {
