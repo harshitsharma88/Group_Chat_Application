@@ -1,35 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Application</title>
-    <link rel="stylesheet" href="/css/chatMainPage.css">
-    <link rel="icon" type="image/x-icon" href="/views/favicon.png">
-   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Application</title>
+  <link rel="stylesheet" href="/css/chatMainPage.css">
+  <link rel="icon" type="image/x-icon" href="/views/favicon.png">
 </head>
 <body>
-    <div class="navbar">
-        <div class="title"></div>
-        <button class="logout-button">Logout</button>
-    </div>
-    <div class="container">
-        <div class="side-panel">
-            <!-- Side panel content, such as list of users or channels -->
-            <a href="" style="text-decoration: none;">User 1</a>
-            <p>User 2</p>
-            <p>User 3</p>
-            <p>Channel 1</p>
-            <p>Channel 2</p>
-            <p>Channel 3</p>
-            <!-- Add more content to enable scrolling -->
-        </div>
-        <div class="chat-area">
-            <!-- Chat messages will be displayed here -->
-            <p>Welcome to the group chat!</p>
-        </div>
-    </div>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <header>
+    <nav>
+      <div class="profile-name"><p id="username"></p></div>
+      <div class="logout-btn"><button class="logout">Logout</button></div>
+      
+      </nav>
+      
+  </header>
+  <main>
+    <aside>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+      </aside>
+    <section class="chat-area">
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+        <p>User 1</p>
+        <p>User 2</p>
+        <p>User 3</p>
+        <p>Channel 1</p>
+        <p>Channel 2</p>
+        <p>Channel 3</p>
+      </section>
+  </main>
+  <form class="message-form">
+    <input type="text" placeholder="Type your message..." name="message">
+    <button type="submit">Send</button>
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
 <script src="/scripting/chatPage.js"></script>
+</body>
 </html>
