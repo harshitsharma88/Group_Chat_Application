@@ -6,5 +6,5 @@ document.querySelector('#username').textContent="Welcome "+username;
 
 document.querySelector('.logout-button').addEventListener('click',()=>{
     localStorage.removeItem('token');
-    location.replace('http://localhost:3000')
+    location.replace('http://50.16.9.194')
 })
