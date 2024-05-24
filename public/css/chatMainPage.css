@@ -50,7 +50,7 @@ body {
 
   .profile-name #username {
     display: block;
-    width: 100%;
+    width: 90%;
     height: 97%;
     text-align:center;
     
@@ -59,7 +59,7 @@ body {
   .logout {
     background-color: rgba(154, 80, 11, 0.895);
     color: white;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: none;
     border-radius: 35%;
     cursor: pointer;
