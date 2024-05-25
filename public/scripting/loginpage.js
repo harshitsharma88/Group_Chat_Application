@@ -15,7 +15,7 @@ async function handleSignup(event){
     console.log(obj);
 
     try {
-       const res= await axios.post('http://50.16.9.194/signup',obj);
+       const res= await axios.post('http://54.237.202.193/signup',obj);
        console.log(res);
         alert(res.data.message);
         
@@ -44,7 +44,7 @@ async function handleLogin(event){
 
 
     try {
-        const res= await axios.post('http://50.16.9.194/login',obj);
+        const res= await axios.post('http://54.237.202.193/login',obj);
         console.log(res);
         
         localStorage.setItem("token",res.data.token);
