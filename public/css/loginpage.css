@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: rgba(154, 80, 11, 0.3); /* Lighter body color */
+    background-color: rgba(28, 113, 150, 0.247); /* Lighter body color */
     margin: 0;
     padding: 0;
     display: flex;
@@ -49,7 +49,7 @@ body {
     }
   
     .login-container {
-      border-right: 5px solid rgba(154, 80, 11, 0.895); /* Thick line same as body color */
+      border-right: 5px solid rgba(4, 17, 46, 0.934); /* Thick line same as body color */
     }
   }
   
@@ -83,7 +83,7 @@ body {
   
   button {
     padding: 10px 15px;
-    background-color: rgba(154, 80, 11, 0.895);
+    background-color: rgba(4, 17, 46, 0.934);
     color: #fff;
     border: none;
     border-radius: 10px; /* Increased border radius */
@@ -93,7 +93,7 @@ body {
   }
   
   button:hover {
-    background-color: rgba(104, 30, 0, 0.895);
+    background-color: rgba(16, 28, 54, 0.774);
     box-shadow: 0 0 15px rgba(211, 211, 211, 0.8); /* Increased shadow visibility */
   }
   
