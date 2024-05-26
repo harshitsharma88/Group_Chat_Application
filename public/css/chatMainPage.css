@@ -93,7 +93,7 @@ body {
 .message {
   max-width: 50%;
   margin: 0.2rem;
-  padding: 1rem;
+  padding: 0.7rem;
   border-radius: 2rem;
   background-color: rgba(28, 113, 150, 0.247);
   align-self: flex-start;
