@@ -3,6 +3,7 @@ window.onload=scrollChatSection;
 const username= localStorage.getItem("username");
 const token = localStorage.getItem("token");
 const section =document.querySelector('.chat-area');
+const inputText= document.querySelector('#inputtext')
 
 
 /////-Welcome Text-///////
@@ -47,7 +48,9 @@ function receivemessage(event){
 
 function sendmessage(event){
     event.preventDefault();
-    const message=event.target.message.value;
+    const message=event.target.message.value.trim();
+
+    if(message!==''){
 
     const sender = document.createElement('div');
     sender.classList='message sender';
@@ -60,8 +63,14 @@ function sendmessage(event){
     section.appendChild(sender);
 
     event.target.message.value='';
+    inputText.focus();
+
 
     scrollChatSection();
+
+    }
+
+    
 
 
 }
