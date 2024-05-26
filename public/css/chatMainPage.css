@@ -101,8 +101,8 @@ body {
 
 .sender {
   align-self: flex-end;
-  background-color: rgba(237, 70, 9, 0.913);
-  box-shadow: 0rem 0.13rem 0.7rem rgba(205, 41, 12, 0.628);
+  background-color: rgba(237, 70, 9, 0.765);
+  box-shadow: 0rem 0.12rem 0.6rem rgba(205, 41, 12, 0.628);
   
 }
 
