@@ -65,15 +65,17 @@ body {
 
   .side-panelbtn{
     width:100%;
+    background-color: rgba(178, 226, 247, 0.454);
     color: black;
     border: none;
     padding: 1rem ;
+    text-align: left;
     
     
   }
 
   .side-panelbtn:hover{
-    background-color: rgba(28, 113, 150, 0.247);
+    background-color: rgba(14, 121, 167, 0.374);
   }
 
   

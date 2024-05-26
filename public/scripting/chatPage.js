@@ -15,25 +15,47 @@ document.querySelector('.logout-btn').addEventListener('click',()=>{
     location.replace('http://54.237.202.193')
 });
 
+ setInterval(async()=>{
+    const response= await axios.get('http://54.237.202.193/message/getmessage',{headers:{authorization:token}});
+    section.innerHTML='';
+    response.data.forEach(element=>{
+        if(element.self){
+            senderMessage(element);
+
+        }
+        else{
+            receiverMessage(element);
+
+        }
+    })
+
+
+
+
+},1000)
+
 ////////---Scroll Chat Section Whenevr new message receives---//////////
 
-function scrollChatSection(){
-    section.scrollTop=section.scrollHeight
+async function scrollChatSection(){
+   
+   section.scrollTop=section.scrollHeight
 
 }
 
+
+
 document.querySelector('.message-form').addEventListener('submit',sendmessage);
 
-function receivemessage(event){
-    event.preventDefault();
-    const message=event.target.message.value;
+function receiverMessage(object){
+    
+    const message=object.message;
 
     const other= document.createElement('div');
     other.classList='message other'
 
     const receivername= document.createElement('div');
     receivername.className='name';
-    receivername.textContent=`${username}`;
+    receivername.textContent=`${object.name}`;
 
     const recivermsg = document.createElement('div');
     recivermsg.className='text';
@@ -46,31 +68,38 @@ function receivemessage(event){
     scrollChatSection();
 }
 
-function sendmessage(event){
+async function sendmessage(event){
     event.preventDefault();
     const message=event.target.message.value.trim();
 
     if(message!==''){
 
-    const sender = document.createElement('div');
-    sender.classList='message sender';
-
-    const text= document.createElement('div');
-    text.classList='text';
-    text.textContent=`${message}`;
-
-    sender.appendChild(text);
-    section.appendChild(sender);
 
     event.target.message.value='';
     inputText.focus();
+
+    const response = await axios.post('http://54.237.202.193/message/postmessage',
+                {message:message,name:username},
+                {headers:{authorization:token}});
 
 
     scrollChatSection();
 
     }
 
-    
+}
 
+async function senderMessage(object){
+    const sender = document.createElement('div');
+    sender.classList='message sender';
+
+    const text= document.createElement('div');
+    text.classList='text';
+    text.textContent=`${object.message}`;
+
+    sender.appendChild(text);
+    section.appendChild(sender);
 
 }
+
+

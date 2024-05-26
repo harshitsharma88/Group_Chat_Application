@@ -1,22 +1,8 @@
-const jwt = require('jsonwebtoken');
+const msgs= require('./models/messages');
 
-const obj = {
-    name:"HArshit",
-    id:2,
-    phone:8059
+async function get(){
+    const msg = await msgs.findAll({});
+    console.log(msg);
 }
 
-function JWT(obj){
-    return jwt.sign(obj,"harshit");
-}
-
-function decrypt(token){
-    return jwt.decode(token,"harshit");
-}
-
-const j = JWT(obj);
-console.log("j=  ",j);
-
-const de= decrypt(j);
-console.log(de);
-
+get();
