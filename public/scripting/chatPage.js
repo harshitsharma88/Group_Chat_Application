@@ -11,7 +11,7 @@ document.querySelector('#username').textContent="Welcome "+username;
 ///////-Logout-Button-/////
 document.querySelector('.logout-btn').addEventListener('click',()=>{
     localStorage.removeItem('token');
-    location.replace('http://localhost:3000')
+    location.replace('http://54.237.202.193')
 });
 
 ////////---Scroll Chat Section Whenevr new message receives---//////////
