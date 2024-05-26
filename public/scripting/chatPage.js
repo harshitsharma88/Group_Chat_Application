@@ -59,6 +59,8 @@ function sendmessage(event){
     sender.appendChild(text);
     section.appendChild(sender);
 
+    event.target.message.value='';
+
     scrollChatSection();
 
 
