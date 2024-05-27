@@ -34,8 +34,6 @@ async function getMessages(req,res,next){
             }
         })
 
-        console.log(allMessage);
-
         return res.status(200).json(allMessage);
         
     } catch (error) {

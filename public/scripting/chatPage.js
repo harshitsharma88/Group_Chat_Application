@@ -12,11 +12,11 @@ document.querySelector('#username').textContent="Welcome "+username;
 ///////-Logout-Button-/////
 document.querySelector('.logout-btn').addEventListener('click',()=>{
     localStorage.removeItem('token');
-    location.replace('http://54.237.202.193')
+    location.replace('http://34.228.115.60')
 });
 
  setInterval(async()=>{
-    const response= await axios.get('http://54.237.202.193/message/getmessage',{headers:{authorization:token}});
+    const response= await axios.get('http://34.228.115.60/message/getmessage',{headers:{authorization:token}});
     section.innerHTML='';
     response.data.forEach(element=>{
         if(element.self){
@@ -78,12 +78,12 @@ async function sendmessage(event){
     event.target.message.value='';
     inputText.focus();
 
-    const response = await axios.post('http://54.237.202.193/message/postmessage',
+    const response = await axios.post('http://34.228.115.60/message/postmessage',
                 {message:message,name:username},
                 {headers:{authorization:token}});
 
 
-    scrollChatSection();
+    
 
     }
 
@@ -99,6 +99,8 @@ async function senderMessage(object){
 
     sender.appendChild(text);
     section.appendChild(sender);
+
+    scrollChatSection();
 
 }
 
