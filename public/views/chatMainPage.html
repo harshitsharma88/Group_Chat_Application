@@ -11,9 +11,23 @@
   
     <nav>
       <p id="username"></p>
+      <button id="openDialog">Open Dialog</button>
       <div class="logout-btn"><button class="logout">Logout</button></div>
-      
+
       </nav>
+
+      <dialog id="myDialog">
+        <button id="closeDialog">X</button>
+        <p>Create Group.</p>
+        <form id="dialogForm" class="dialogForm">
+          <input type="text" name="groupName" placeholder="Give your group a name" />
+          <input type="text" name="membersName" placeholder="Enter members email comma separated" />
+          <button type="submit" id="dialogbtn">Create Group</button>
+
+        </form>
+        
+        
+      </dialog>
       
   
   <main>

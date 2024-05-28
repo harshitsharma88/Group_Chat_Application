@@ -145,9 +145,9 @@ body {
   .message-form button {
     background-color: rgba(11, 154, 142, 0.895);
     color: white;
-    padding: 10px 15px;
+    padding: 0.7rem 0.9rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     cursor: pointer;
   }
 
@@ -155,4 +155,39 @@ body {
     background-color: rgb(4, 120, 110)
 
   }
+
+
+  /* --------Dialog-Box-------- */
+
+  /* styles.css */
+dialog {
+  border: none;
+  border-radius: 1rem;
+  padding:2rem;
+  box-shadow: 0 0.6rem 0.8rem rgba(28, 113, 150, 0.247);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#closeDialog{
+  color:red;
+  border: none;
+  padding: 0;
+}
+
+#dialogbtn{
+  background-color: rgba(11, 154, 142, 0.895);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+#dialogbtn:hover{
+  background-color: rgb(4, 120, 110)
+
+}
 

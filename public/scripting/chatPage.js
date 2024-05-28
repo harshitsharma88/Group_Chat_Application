@@ -15,24 +15,20 @@ document.querySelector('.logout-btn').addEventListener('click',()=>{
     location.replace('http://34.228.115.60')
 });
 
- setInterval(async()=>{
-    const response= await axios.get('http://34.228.115.60/message/getmessage',{headers:{authorization:token}});
-    section.innerHTML='';
-    response.data.forEach(element=>{
-        if(element.self){
-            senderMessage(element);
+//  setInterval(async()=>{
+//     const response= await axios.get('http://34.228.115.60/message/getmessage',{headers:{authorization:token}});
+//     section.innerHTML='';
+//     response.data.forEach(element=>{
+//         if(element.self){
+//             senderMessage(element);
 
-        }
-        else{
-            receiverMessage(element);
+//         }
+//         else{
+//             receiverMessage(element);
 
-        }
-    })
-
-
-
-
-},1000)
+//         }
+//     })
+// },1000)
 
 ////////---Scroll Chat Section Whenevr new message receives---//////////
 
@@ -103,5 +99,16 @@ async function senderMessage(object){
     scrollChatSection();
 
 }
+
+
+////////////////-DialogBox-////////////////
+
+document.getElementById('openDialog').addEventListener('click', function() {
+    document.getElementById('myDialog').showModal();
+  });
+  
+  document.getElementById('closeDialog').addEventListener('click', function() {
+    document.getElementById('myDialog').close();
+  });
 
 
