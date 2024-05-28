@@ -164,6 +164,7 @@ dialog {
   border: none;
   border-radius: 1rem;
   padding:2rem;
+  margin: 2rem;
   box-shadow: 0 0.6rem 0.8rem rgba(28, 113, 150, 0.247);
 }
 
