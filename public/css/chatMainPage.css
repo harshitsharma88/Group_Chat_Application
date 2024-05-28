@@ -192,3 +192,13 @@ dialog::backdrop {
 
 }
 
+#dialogForm{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.formItem{
+  margin-bottom: 0.5rem;
+}
+
