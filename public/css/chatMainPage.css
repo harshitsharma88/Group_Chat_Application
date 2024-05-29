@@ -114,6 +114,20 @@ body {
     background-color: rgb(244, 216, 181);
   }
 
+  .exitButton{
+    border: none;
+    background-color: rgb(148, 43, 43);
+    width: 20%;
+    padding: 0.7rem;
+    border-radius: 1rem;
+
+  }
+
+  .exitButton:hover{
+    background-color: rgb(148, 43, 43)
+
+  }
+
 
   .side-panelbtn:hover{
     background-color: rgba(14, 121, 167, 0.374);
@@ -209,6 +223,7 @@ dialog {
   box-shadow: 0 0.6rem 0.8rem rgba(28, 113, 150, 0.247);
   overflow-y: auto;
   max-height: 80%;
+  max-width: 80%;
 }
 
 dialog::backdrop {

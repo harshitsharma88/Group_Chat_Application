@@ -1,6 +1,7 @@
 const Router= require('express').Router();
 const authenticate= require('../middleware/auth');
 const groupController=require('../controllers/groupController');
+const { route } = require('./userLoginRoute');
 
 
 Router.post('/creategroup',authenticate,groupController.creategroup);
@@ -16,6 +17,8 @@ Router.delete('/deletemember',groupController.deleteMember);
 Router.put('/makeadmin',groupController.makeAdmin);
 
 Router.put('/removeadmin',groupController.removeAdmin);
+
+Router.delete('/exitgroup',authenticate,groupController.exitGroup)
 
 
 

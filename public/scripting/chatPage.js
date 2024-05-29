@@ -124,7 +124,13 @@ function showGroups(groupName,groupId,isAdmin){
         sideDiv.appendChild(groupInfoBtn);
     }
     else{
-        groupNameBtn.style.width='100%';
+        const exitButton=document.createElement('button');
+        exitButton.textContent='->';
+        exitButton.className='exitButton';
+        exitButton.addEventListener('click',(event)=>{
+            exitGroup(event,groupId)
+        })
+        sideDiv.appendChild(exitButton);
         
     } 
     
@@ -231,7 +237,11 @@ function addMemberToDialogTable(array,groupId){
 
     for(let i=0;i<array.length;i++){
         const tr= document.createElement('tr');
-        tr.setAttribute('id',array[i].userId);
+        let userId=array[i].userId;
+        if(!userId){
+            userId=array[i].id;
+        }
+        tr.setAttribute('id',userId);
         tr.innerHTML=`<td>${array[i].name}</td><td>${array[i].email}<td>`;
 
         if(array[i].isAdmin&&array[i].self){
@@ -289,6 +299,28 @@ function addMemberToDialogTable(array,groupId){
 
 /////////-Remove From Group-////////
 
+async function exitGroup(event,groupId){
+
+    try {
+        const response= await axios({
+            url:'http://34.228.115.60/group/exitgroup',
+            data:{groupId:groupId},
+            method:'delete',
+            headers:{authorization:token}
+        });
+        console.log(response);
+
+        event.target.parentNode.remove();
+
+        
+    } catch (error) {
+        console.log(error);
+        alert(error)
+        
+    }
+
+}
+
 async function removeGroup(event,groupId){
     const userId= event.target.parentNode.parentNode.getAttribute('id');
     console.log(userId);
@@ -304,7 +336,6 @@ async function removeGroup(event,groupId){
             document.querySelector(`#name-${groupId}`).parentNode.remove();
             document.querySelector('#groupInfoDialog').close();
             return;
-
         }
 
         event.target.parentNode.parentNode.remove();
@@ -437,9 +468,9 @@ document.getElementById('openDialog').addEventListener('click', function() {
 ////////////---Edit Group Button Listener---///////////
 
 
-document.querySelector('#groupInfo').addEventListener('click',function(){
-    document.querySelector('#groupInfoDialog').showModal();
-})
+// document.querySelector('#groupInfo').addEventListener('click',function(){
+//     document.querySelector('#groupInfoDialog').showModal();
+// })
 
 document.querySelector('#closeInfoDialog').addEventListener('click',function(){
     document.querySelector('#groupInfoDialog').close();

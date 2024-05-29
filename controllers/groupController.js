@@ -246,6 +246,27 @@ async function deleteMember(req,res,next){
     }
 }
 
+async function exitGroup(req,res,next){
+    const {user}=req;
+    const {groupId}=req.body;
+    
+    try {
+        await Members.destroy({
+            where:{
+                groupId:groupId,
+                userId:user.id
+            }
+        })
+
+        res.status(200).json({message:"Exited From Group"})
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:"Error Occurred"})
+    }
+
+}
+
 async function makeAdmin(req,res,next){
     const {userId,groupId}=req.body;
     console.log(userId);
@@ -299,5 +320,6 @@ module.exports={
     getAllGroups,
     deleteMember,
     makeAdmin,
-    removeAdmin
+    removeAdmin,
+    exitGroup
 }

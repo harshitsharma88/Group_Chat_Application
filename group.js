@@ -44,13 +44,14 @@ const Members=require('./models/members');
 
 /////////--Relations--/////////////
 Users.hasMany(Messages);
-Messages.belongsTo(Users);
-
-Groups.hasMany(Users);
 Users.hasMany(Groups);
 
-Groups.hasMany(Messages);
+Messages.belongsTo(Users);
 Messages.belongsTo(Groups);
+
+Groups.hasMany(Users);
+Groups.hasMany(Messages);
+
 
 
 
