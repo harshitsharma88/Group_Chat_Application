@@ -17,20 +17,32 @@
       </nav>
 
       <dialog id="myDialog">
-        <button id="closeDialog">X</button>
+        <button id="closeDialog" class="closeDialog">X</button>
         <p>Create Group.</p>
         <form id="dialogForm" class="dialogForm">
           <input type="text" class="formItem" name="groupName" placeholder="Give your group a name" />
           <input type="text" class="formItem" name="membersName" placeholder="Enter members email comma separated" />
-          <button type="submit" id="dialogbtn">Create Group</button>
+          <button type="submit" class="dialogbtn">Create Group</button>
 
         </form>
+      </dialog>
+      
+      <dialog id="groupInfoDialog">
+        <button id="closeInfoDialog" class="closeDialog">X</button>
+        <p>Edit Group.</p>
+        <form id="editGroupForm">
+          <input type="text" placeholder="Enter members email comma separated" name="membersName" required />
+          <button type="submit" class="dialogbtn">Add Members</button>
+        </form>
+        <table id="infoTable"></table>
+
       </dialog>
       
   
   <main>
     <aside>
         <!-- <button class="side-panelbtn">User 2</button> -->
+        <div class="sideDiv"><button id="groupId" class="groupNameBtn">Group-1</button><button id="groupInfo" class="groupInfoBtn">!</button></div>
 
 
        

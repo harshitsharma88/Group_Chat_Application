@@ -18,6 +18,7 @@ app.use(express.static('public'));
 const userLoginRoute=require('./routes/userLoginRoute');
 const chatPageRoute= require('./routes/chatPageRoute');
 const messageRoute=require('./routes/messageRoute');
+const groupRoute= require('./routes/groupRoutes');
 
 
 
@@ -26,6 +27,7 @@ const messageRoute=require('./routes/messageRoute');
 app.use('/',userLoginRoute);
 app.use('/chatpage',chatPageRoute);
 app.use('/message',messageRoute);
+app.use('/group',groupRoute);
 
 
 
@@ -36,12 +38,19 @@ const sequelize=require('./utils/database');
 /////////--Models--////////////////
 const Users=require('./models/users');
 const Messages= require('./models/messages');
-
+const Groups=require('./models/groups');
+const Members=require('./models/members');
 
 
 /////////--Relations--/////////////
 Users.hasMany(Messages);
 Messages.belongsTo(Users);
+
+Groups.hasMany(Users);
+Users.hasMany(Groups);
+
+Groups.hasMany(Messages);
+Messages.belongsTo(Groups);
 
 
 

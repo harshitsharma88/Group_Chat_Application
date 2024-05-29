@@ -75,18 +75,45 @@ body {
     overflow: auto;
     /* padding: 10px; */
     height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
-  .side-panelbtn{
+  .sideDiv{
     width:100%;
     background-color: rgba(178, 226, 247, 0.454);
-    color: black;
-    border: none;
-    padding: 1rem ;
     text-align: left;
-    
+    padding-top: 0.33rem;
+    padding-bottom: 0.33rem;
     
   }
+
+  .groupNameBtn{
+    border: none;
+    width: 80%;
+    padding: 0.7rem;
+    background-color: rgba(178, 226, 247, 0.393);
+    text-align: left;
+    
+  }
+
+  .groupNameBtn:hover{
+    background-color: rgba(62, 140, 174, 0.861);
+  }
+
+  .groupInfoBtn{
+    border: none;
+    background-color: antiquewhite;
+    width: 20%;
+    padding: 0.7rem;
+    border-radius: 1rem;
+    
+  }
+
+  .groupInfoBtn:hover{
+    background-color: rgb(244, 216, 181);
+  }
+
 
   .side-panelbtn:hover{
     background-color: rgba(14, 121, 167, 0.374);
@@ -180,28 +207,32 @@ dialog {
   padding:2rem;
   margin: 2rem;
   box-shadow: 0 0.6rem 0.8rem rgba(28, 113, 150, 0.247);
+  overflow-y: auto;
+  max-height: 80%;
 }
 
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
 
-#closeDialog{
+.closeDialog{
   color:red;
   border: none;
   padding: 0;
+  position: fixed;
 }
 
-#dialogbtn{
+.dialogbtn{
   background-color: rgba(11, 154, 142, 0.895);
   color: white;
   padding: 0.3rem 0.6rem;
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
+  
 }
 
-#dialogbtn:hover{
+.dialogbtn:hover{
   background-color: rgb(4, 120, 110)
 
 }
@@ -215,4 +246,55 @@ dialog::backdrop {
 .formItem{
   margin-bottom: 0.5rem;
 }
+
+/*  ----Group members Table ---- */
+#infoTable{
+
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+
+td {
+  border-bottom: 0.1rem solid #000; /* Add bottom border to each td */
+  text-align: left; /* Align text to the left */
+  padding: 1rem; /* Add space inside each cell */
+}
+
+td:last-child button {
+  margin-left: 0; /* Ensure button is aligned to the left */
+  vertical-align: baseline; /* Align button with the baseline of text */
+}
+
+.removeButton{
+  background-color: rgba(237, 13, 13, 0.776);
+  border-radius: 0.5rem;
+  border: none;
+  margin-top: 1px;
+  margin-bottom: 0px;
+  padding: 0.3rem 0.6rem;
+}
+
+.removeButton:hover{
+  background-color: rgba(239, 8, 8, 0.991)
+
+}
+
+.adminButton{
+  background-color: rgba(12, 58, 225, 0.797);
+  border-radius: 0.5rem;
+  border: none;
+  margin-top: 1px;
+  margin-bottom: 0px;
+  margin-right: 0.3 rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.adminButton:hover{
+  background-color: rgba(0, 55, 255, 0.954)
+
+}
+
+
+
 

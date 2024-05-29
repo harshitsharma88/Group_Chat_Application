@@ -1,9 +1,9 @@
 const router=require('express').Router();
-const auth = require('../middleware/auth');
+const authenticate = require('../middleware/auth');
 const messageController= require('../controllers/messageController');
 
-router.post('/postmessage',auth,messageController.storeMessage);
+router.post('/postmessage',authenticate,messageController.storeMessage);
 
-router.get('/getmessage',auth,messageController.getMessages);
+router.get('/getmessage',authenticate,messageController.getMessages);
 
 module.exports=router
