@@ -491,6 +491,7 @@ function sendMessage(event){
     if(message!==''){
         const groupId= localStorage.getItem('groupId');
         socket.emit('sendMessage',{message: message,groupId,token});
+        document.querySelector('#inputtext').value='';
     }
     
 }
