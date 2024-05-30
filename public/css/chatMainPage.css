@@ -5,7 +5,7 @@ body {
   }
   
 
-   nav{
+   .top-nav{
     background-color: rgba(4, 17, 46, 0.934);
     height: 55px;
     display: flex;
@@ -44,6 +44,35 @@ body {
   float: left;
 
 }
+#openDialog:hover{
+  transform: scale(0.83);
+  box-shadow: 0rem 0rem 1.5rem  rgba(211, 211, 211, 0.8);
+
+}
+
+#display-group-name{
+  color:antiquewhite;
+  background: none;
+  border: none;
+}
+
+#display-group-name:hover{
+  color: yellowgreen;
+  transform: scale(1.2);
+  
+}
+
+#close-group{
+  border: none;
+  background-color: antiquewhite;
+  border-radius: 2rem;
+
+}
+
+#close-group:hover{
+  background-color: rgb(248, 212, 165);
+  transform: scale(1.2);
+}
 
   .logout {
     background-color: rgb(123, 14, 145);
@@ -67,6 +96,7 @@ body {
     display: flex;
     height: calc(100vh - 45px);
     margin-top: 55px;
+    
   }
   
   aside {
@@ -112,6 +142,7 @@ body {
 
   .groupInfoBtn:hover{
     background-color: rgb(244, 216, 181);
+    transform: scale(0.83);
   }
 
   .exitButton{
@@ -140,11 +171,16 @@ body {
   width: 75%;
   overflow-y: auto;
   background-color: #fff;
-  padding: 0.7rem;
+  padding-top: 0;
+  padding-right: 0.7rem;
+  padding-bottom: 1rem;
+  padding-left: 0.7rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  
+  
 }
 
 .message {
@@ -171,6 +207,20 @@ body {
 
 .text {
   font-size: 1em;
+}
+
+.section-nav{
+  width: 100%;
+  /* position: fixed; */
+  background-color: rgb(224, 215, 203);
+  float: left;
+  height: 3rem;
+  border-radius:1rem ;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index:1000;
+
+
 }
 
 /* /////// -Chat-Area- /////// */

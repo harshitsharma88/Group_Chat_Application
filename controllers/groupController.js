@@ -313,6 +313,8 @@ async function removeAdmin(req,res,next){
 
     
 }
+
+
 module.exports={
     creategroup,
     getMembers,
@@ -321,5 +323,6 @@ module.exports={
     deleteMember,
     makeAdmin,
     removeAdmin,
-    exitGroup
+    exitGroup,
+
 }

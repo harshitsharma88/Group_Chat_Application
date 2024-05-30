@@ -4,6 +4,6 @@ const messageController= require('../controllers/messageController');
 
 router.post('/postmessage',authenticate,messageController.storeMessage);
 
-router.get('/getmessage',authenticate,messageController.getMessages);
+router.get('/getmessage/:groupid',authenticate,messageController.getMessages);
 
 module.exports=router

@@ -9,9 +9,10 @@
 </head>
 <body>
   
-    <nav>
+    <nav class="top-nav">
       <p id="username"></p>
       <div id="openDialogDiv"><button id="openDialog">New Group +</button></div>
+      <div><button id="display-group-name">Global </button><button id="close-group">X</button></div>
       <div class="logout-btn"><button class="logout">Logout</button></div>
 
       </nav>
@@ -48,19 +49,21 @@
        
       </aside>
     <section class="chat-area">
+      
+     
        
         
       
       
      
-        <div class="message sender">
+        <!-- <div class="message sender">
             <div class="text">Hello! How are you?</div>
         </div>
 
         <div class="message other">
             <div class="name">Alice</div>
             <div class="text">I'm good, thanks! How about you?</div>
-        </div>
+        </div> -->
     
    
         
@@ -76,7 +79,15 @@
     <input type="text" placeholder="Type your message..." name="message" id="inputtext">
     <button type="submit">Send</button>
   </form>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+
+  <script src='/socket.io/socket.io.js'></script>
+
+  <script>
+  const socket= io();
+</script>
 <script src="/scripting/chatPage.js"></script>
+
 </body>
 </html>

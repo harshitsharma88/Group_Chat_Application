@@ -1,6 +1,4 @@
-
-
-window.onload=scrollChatSection;
+localStorage.setItem('groupId',1);
 
 const username= localStorage.getItem("username");
 const token = localStorage.getItem("token");
@@ -11,6 +9,11 @@ const table= document.querySelector('#infoTable');
 
 document.addEventListener('DOMContentLoaded',getAllGroups);
 
+socket.on('errorResponse',(error)=>alert("Errorr Occurred"));
+
+/////-Welcome Text-///////
+document.querySelector('#username').textContent="Welcome "+username;
+
 //////---Get All Groups of Current User---/////
 async function getAllGroups(event){
     try {
@@ -19,12 +22,12 @@ async function getAllGroups(event){
 
         const allGroups= response.data;
 
-        console.log(Array.isArray(allGroups));
-        console.log(allGroups);
 
         allGroups.forEach(element=>{
             showGroups(element.groupName,element.groupId,element.isAdmin)
         })
+
+        getGroupMessages(1);
 
 
         
@@ -34,9 +37,40 @@ async function getAllGroups(event){
 }
 
 
+///////---Clear All and Show Global Chats---///////
+document.querySelector('#close-group').addEventListener('click',showGlobalMessages)
 
-/////-Welcome Text-///////
-document.querySelector('#username').textContent="Welcome "+username;
+async function showGlobalMessages(event){
+    document.querySelector('#display-group-name').textContent='Global ';
+    localStorage.setItem('groupId',1);
+    getGroupMessages(1);
+}
+
+
+///////////-- Show Messages of Group --///////
+async function getGroupMessages(groupId){
+    try {
+        const groupMessages= await axios.get(`http://34.228.115.60/message/getmessage/${groupId}`,{headers:{authorization:token}});
+        section.innerHTML='';
+        groupMessages.data.forEach(element=>{
+            if(element.self){
+                selfMessage(element);
+                
+
+
+            }
+            else{
+                othersMessage(element);
+
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        alert("Error occurred");
+        
+    }
+}
+
 
 ///////-Logout-Button-/////
 document.querySelector('.logout-btn').addEventListener('click',()=>{
@@ -74,10 +108,12 @@ dialogForm.addEventListener('submit',createGroup);
 
 async function createGroup(event){
     event.preventDefault();
+    const array=event.target.membersName.value.split(',');
+    array.forEach((element,index,list)=>{list[index]=element.trim()});
 
     const groupInfo={
         groupName:event.target.groupName.value,
-        members:event.target.membersName.value.split(',')
+        members:array
     }
 
     try {
@@ -112,7 +148,12 @@ function showGroups(groupName,groupId,isAdmin){
     const groupNameBtn= document.createElement('button');
     groupNameBtn.textContent=`${groupName}`
     groupNameBtn.className='groupNameBtn';
-    groupNameBtn.setAttribute("id",`name-${groupId}`)
+    groupNameBtn.setAttribute("id",`name-${groupId}`);
+    groupNameBtn.addEventListener('click',(event)=>{
+        localStorage.setItem('groupId',groupId);
+        getGroupMessages(groupId);
+        document.querySelector('#display-group-name').textContent=`${groupName}`
+    })
     sideDiv.appendChild(groupNameBtn);
 
     if(isAdmin){
@@ -183,6 +224,7 @@ async function addMember(event){
     const groupId= event.target.className;
     
     const members= event.target.membersName.value.split(',');
+    members.forEach((member,index,list)=>{list[index]=member.trim()});
     const table= document.querySelector('#infoTable');
     try {
         const response= await axios.post('http://34.228.115.60/group/addmembers',{groupId:groupId,members:members},
@@ -308,7 +350,7 @@ async function exitGroup(event,groupId){
             method:'delete',
             headers:{authorization:token}
         });
-        console.log(response);
+        getGroupMessages(1);
 
         event.target.parentNode.remove();
 
@@ -333,8 +375,15 @@ async function removeGroup(event,groupId){
         })
 
         if(event.target.textContent=='Leave'){
+            if(openedGroup==groupId){
+                localStorage.setItem('groupId',1);
+                getGroupMessages(1);
+            }
             document.querySelector(`#name-${groupId}`).parentNode.remove();
             document.querySelector('#groupInfoDialog').close();
+            const openedGroup=localStorage.getItem('groupId');
+            
+            
             return;
         }
 
@@ -396,10 +445,63 @@ async function removeAdmin(event,groupId){
 
 }
 
+////////--- Send and Recieve Messages ---////////////
 
-document.querySelector('.message-form').addEventListener('submit',sendmessage);
+// async function sendmessage(event){
+//     event.preventDefault();
+//     const message=event.target.message.value.trim();
 
-function receiverMessage(object){
+//     if(message!==''){
+
+
+//     event.target.message.value='';
+//     inputText.focus();
+
+//     const response = await axios.post('http://34.228.115.60/message/postmessage',
+//                 {message:message,name:username},
+//                 {headers:{authorization:token}});
+
+//     }
+
+// }
+
+socket.on('receivedMessage',(data)=>{
+    const groupId=localStorage.getItem('groupId');
+    
+
+    if(groupId==data.groupId){
+
+        if(token==data.token){
+            selfMessage(data);
+        }
+
+        else{
+            othersMessage(data);
+        }
+
+    }
+})
+
+document.querySelector('.message-form').addEventListener('submit',sendMessage);
+
+function sendMessage(event){
+    event.preventDefault();
+    const message= event.target.message.value.trim()
+
+    if(message!==''){
+        const groupId= localStorage.getItem('groupId');
+        socket.emit('sendMessage',{message: message,groupId,token});
+    }
+    
+}
+
+
+//////////-- Display Messages in Chat-Box --////////////
+
+
+
+
+function othersMessage(object){
     
     const message=object.message;
 
@@ -421,25 +523,9 @@ function receiverMessage(object){
     scrollChatSection();
 }
 
-async function sendmessage(event){
-    event.preventDefault();
-    const message=event.target.message.value.trim();
-
-    if(message!==''){
 
 
-    event.target.message.value='';
-    inputText.focus();
-
-    const response = await axios.post('http://34.228.115.60/message/postmessage',
-                {message:message,name:username},
-                {headers:{authorization:token}});
-
-    }
-
-}
-
-async function senderMessage(object){
+async function selfMessage(object){
     const sender = document.createElement('div');
     sender.classList='message sender';
 
@@ -453,6 +539,7 @@ async function senderMessage(object){
     scrollChatSection();
 
 }
+
 
 
 ////////////////-DialogBox-New Group-////////////////

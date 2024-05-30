@@ -2,28 +2,30 @@ const Users= require('../models/users');
 const messages = require('../models/messages');
 const { where } = require('sequelize');
 
-async function storeMessage(req,res,next){
+async function storeMessage(user,message,groupId){
     try {
         await messages.create({
-            name:req.body.name,
-            message:req.body.message,
-            userId:req.user.id
+            name:user.name,
+            message:message,
+            userId:user.id,
+            groupId:groupId
         })
 
-        return res.status(200).json('succes');
+        return;
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({message:'Error Occurred'});
+        throw new Error();
     }
 
 }
 
 
 async function getMessages(req,res,next){
+    const groupId=req.params.groupid
     try {
 
-        const allMessage= await messages.findAll({order:['id']});
+        const allMessage= await messages.findAll({where:{groupId:groupId}},{order:['id']});
 
          allMessage.forEach((element)=>{
             if(element.userId===req.user.id){
@@ -44,9 +46,8 @@ async function getMessages(req,res,next){
     }
 }
 
-
 module.exports={
     storeMessage,
-    getMessages
+    getMessages,
 
 }
