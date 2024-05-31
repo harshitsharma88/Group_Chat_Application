@@ -265,10 +265,12 @@ body {
     background-color: rgb(4, 120, 110)
 
   }
-
-  #selectfile{
-    width: 10%;
-  }
+#attachimage{
+  height:1.7rem;
+  width: 1.7rem;
+  float: left;
+  margin-right: 1rem;
+}
 
   
 

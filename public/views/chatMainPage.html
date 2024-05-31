@@ -83,7 +83,8 @@
 
   </main>
   <form class="message-form" enctype="multipart/form-data">
-    <input id='selectfile' type="file" name="imageupload" accept="image/*"/>
+    <label for="selectfile"><img id="attachimage" src="https://harshitexpansetrackernode.s3.amazonaws.com/attach.png" alt=""></label>
+    <input id='selectfile' type="file" name="imageupload"  style="display: none;" accept="image/*"/>
     <input type="text" placeholder="Type your message..." name="message" id="inputtext"/>
     <button type="submit">Send</button>
   </form>

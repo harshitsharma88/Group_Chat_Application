@@ -509,6 +509,12 @@ function selfPhoto(object){
 
 }
 
+document.querySelector('#selectfile').addEventListener('change',(event)=>{
+    document.querySelector('#inputtext').value=event.target.value;
+    document.querySelector('#inputtext').readOnly=true;
+})
+   
+
 
 document.querySelector('.message-form').addEventListener('submit',sendMessage);
 
@@ -526,9 +532,14 @@ async function sendMessage(event){
         formData.append('imageupload',file);
         formData.append('token',token);
         formData.append('groupId',groupId);
+        document.querySelector('#inputtext').value='';
+        document.querySelector('#inputtext').removeAttribute('readonly')
+
         await axios.post('http://34.228.115.60/upload',{imageupload:file,groupId,token},
         {headers:{authorization:token,"Content-Type": "multipart/form-data",}} 
         )
+        event.target.message.value='';
+        return;
 
     }
 
