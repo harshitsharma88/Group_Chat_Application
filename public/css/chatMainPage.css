@@ -230,8 +230,8 @@ body {
   .message-form {
     position: fixed;
     bottom: 0;
-    right: 0;  /* Moved to right side */
-    width: 78%;  /* Set width to 80% */
+    right: 0;  
+    width: 78%; 
     background-color: white;
     display: flex;
     align-items: center;
@@ -321,14 +321,14 @@ dialog::backdrop {
 }
 
 td {
-  border-bottom: 0.1rem solid #000; /* Add bottom border to each td */
-  text-align: left; /* Align text to the left */
-  padding: 1rem; /* Add space inside each cell */
+  border-bottom: 0.1rem solid #000; 
+  text-align: left; 
+  padding: 1rem; 
 }
 
 td:last-child button {
-  margin-left: 0; /* Ensure button is aligned to the left */
-  vertical-align: baseline; /* Align button with the baseline of text */
+  margin-left: 0; 
+  vertical-align: baseline;
 }
 
 .removeButton{

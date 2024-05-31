@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded',getAllGroups);
 socket.on('errorResponse',(error)=>alert("Errorr Occurred"));
 
 /////-Welcome Text-///////
-document.querySelector('#username').textContent="Welcome "+username;
+document.querySelector('#username').textContent=`${username}`
 
 //////---Get All Groups of Current User---/////
 async function getAllGroups(event){

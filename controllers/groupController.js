@@ -3,55 +3,42 @@ const Users= require('../models/users');
 const messages = require('../models/messages');
 const Members= require('../models/members');
 const {Op, where}=require('sequelize');
+const database= require('../utils/database');
 
 
 async function creategroup(req,res,next){
     const {user}=req;
     const {groupName,members}=req.body;
+    const trn = await database.transaction();
     try {
 
-        const group = await Groups.create({
+        const group = Groups.create({
             groupName:groupName
-        })
+        },{transaction:trn})
 
-        const groupId= group.dataValues.id;
+        
 
-        let users=await Users.findAll({
+        let users= Users.findAll({
             where:{
                 email:{
                     [Op.in]:members
                 }
             }
-        })
+        },{transaction:trn});
 
-        users = users.filter(element=>element.dataValues.email!==user.email);
+        const all = await Promise.all([group,users])
 
-                // users.forEach(async(element)=>{
-        //     let check= await Members.findAll({where:{
-        //         userId:element.dataValues.id,
-        //         groupId:groupId
+        const groupId= all[0].dataValues.id;
 
-        //     }})
-        //     if(check.length===0){
-        //         await Members.create({
-        //             isAdmin:false,
-        //             userId:element.dataValues.id,
-        //             name:element.dataValues.name,
-        //             email:element.dataValues.email,
-        //             groupId:groupId,
-        //             groupName:groupName
-        //         })
-        //     }
-            
-            
-        // });
+        users = all[1].filter(element=>element.dataValues.email!==user.email);
 
+        
         for(let element of users){
             let check= await Members.findAll({where:{
                 userId:element.dataValues.id,
                 groupId:groupId
 
-            }})
+            }},{transaction:trn})
 
             if(check.length===0){
                 await Members.create({
@@ -61,7 +48,7 @@ async function creategroup(req,res,next){
                     email:element.dataValues.email,
                     groupId:groupId,
                     groupName:groupName
-                })
+                },{transaction:trn})
 
             }
         }
@@ -73,13 +60,16 @@ async function creategroup(req,res,next){
             email:user.email,
             groupName:groupName
 
-        })
+        },{transaction:trn})
+
+        await trn.commit();
 
     res.status(201).json({groupId:groupId,groupName:groupName})
 
         
     } catch (error) {
         console.log(error);
+        trn.rollback();
         res.status(500).json({message:"Error Occurred"})
         
     }
@@ -90,53 +80,37 @@ async function creategroup(req,res,next){
 async function addMember(req,res,next){
     const{user}=req;
     const {members,groupId}=req.body;
+    const trn= await database.transaction();
     try {
 
-        let users=await Users.findAll({
+        let users= Users.findAll({
             where:{
                 email:{
                     [Op.in]:members
                 }
             }
-        })
+        },{transaction:trn});
 
-        const groupName=await Groups.findOne({where:{
+        let groupName= Groups.findOne({where:{
             id:groupId
-        }})
+        }},{transaction:trn});
+
+        const resolvedPromises= await Promise.all([users,groupName]);
+
+        users=resolvedPromises[0];
+        groupName=resolvedPromises[1];
+
         
 
         let responseToSend=[];
 
-     /* users.forEach(async(element)=>{
-            let check= await Members.findAll({where:{
-                userId:element.dataValues.id,
-                groupId:groupId
-
-            }})
-
-            if(check.length===0){
-                responseToSend.push(element);
-
-                await Members.create({
-                    isAdmin:false,
-                    userId:element.dataValues.id,
-                    name:element.dataValues.name,
-                    email:element.dataValues.email,
-                    groupId:groupId,
-                    groupName:groupName.dataValues.groupName
-                })
-
-            }
-            
-            
-        }) */
 
         for(let element of users ){
             let check= await Members.findAll({where:{
                 userId:element.dataValues.id,
                 groupId:groupId
 
-            }})
+            }},{transaction:trn})
 
             if(check.length===0){
                 responseToSend.push(element);
@@ -148,16 +122,19 @@ async function addMember(req,res,next){
                     email:element.dataValues.email,
                     groupId:groupId,
                     groupName:groupName.dataValues.groupName
-                })
+                },{transaction:trn})
 
             }
 
         }
 
+        await trn.commit();
+
         res.status(201).json(responseToSend)
         
     } catch (error) {
         console.log(error);
+        trn.rollback();
         res.status(500).json({message:'Error Occurred'})
         
     }

@@ -15,7 +15,7 @@ const io = require('socket.io')(http);
 /////-- Condfiguring all the packagaes functions--///////
 
 
-app.use(cors());
+app.use(cors({origin:'*'}));
 app.use(express.static('public'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
@@ -67,12 +67,12 @@ Groups.hasMany(Messages);
 ///////--Socket Events--///////
 const socketAuthenticate=require('./middleware/socketAuthenticate');
 const {storeMessage}= require('./controllers/messageController');
-const { receiveMessageOnPort } = require('worker_threads');
 
 
 
 
-sequelize.sync()
+
+sequelize.sync({force:true})
 .then(()=>{
     http.listen(3000,()=>{
         console.log(`Listening on Port: ${PORT}`);
