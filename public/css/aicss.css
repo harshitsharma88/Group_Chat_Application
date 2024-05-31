@@ -1,0 +1,371 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  
+  .top-nav {
+    background-color: rgba(4, 17, 46, 0.934);
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  #username {
+    display: block;
+    width: auto;
+    padding-left: 0.3rem;
+    margin-left: 0.3rem;
+    text-align: center;
+    text-decoration: solid;
+    color: antiquewhite;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  #openDialogDiv {
+    float: left;
+  }
+  
+  #openDialog {
+    border-radius: 0.3rem;
+    background-color: rgba(30, 170, 30, 0.913);
+    border: none;
+    padding: 0.4rem;
+    float: left;
+  }
+  
+  #openDialog:hover {
+    transform: scale(0.83);
+    box-shadow: 0rem 0rem 1.5rem rgba(211, 211, 211, 0.8);
+  }
+  
+  #display-group-name {
+    color: antiquewhite;
+    background: none;
+    border: none;
+  }
+  
+  #display-group-name:hover {
+    color: yellowgreen;
+    transform: scale(1.2);
+  }
+  
+  #close-group {
+    border: none;
+    background-color: antiquewhite;
+    border-radius: 2rem;
+  }
+  
+  #close-group:hover {
+    background-color: rgb(248, 212, 165);
+    transform: scale(1.2);
+  }
+  
+  .logout {
+    background-color: rgb(123, 14, 145);
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border: none;
+    border-radius: 48%;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    float: right;
+    margin-right: 1vw;
+  }
+  
+  .logout:hover {
+    background-color: rgba(104, 30, 0, 0.895);
+    box-shadow: 0 0 15px rgba(211, 211, 211, 0.8);
+  }
+  
+  main {
+    display: flex;
+    height: calc(100vh - 55px);
+    margin-top: 55px;
+  }
+  
+  aside {
+    background-color: rgba(28, 113, 150, 0.247);
+    width: 25%;
+    overflow: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sideDiv {
+    width: 100%;
+    background-color: rgba(178, 226, 247, 0.454);
+    text-align: left;
+    padding-top: 0.33rem;
+    padding-bottom: 0.33rem;
+  }
+  
+  .groupNameBtn {
+    border: none;
+    width: 80%;
+    padding: 0.7rem;
+    background-color: rgba(178, 226, 247, 0.393);
+    text-align: left;
+  }
+  
+  .groupNameBtn:hover {
+    background-color: rgba(62, 140, 174, 0.861);
+  }
+  
+  .groupInfoBtn {
+    border: none;
+    background-color: antiquewhite;
+    width: 20%;
+    padding: 0.7rem;
+    border-radius: 1rem;
+  }
+  
+  .groupInfoBtn:hover {
+    background-color: rgb(244, 216, 181);
+    transform: scale(0.83);
+  }
+  
+  .exitButton {
+    border: none;
+    background-color: rgb(148, 43, 43);
+    width: 20%;
+    padding: 0.7rem;
+    border-radius: 1rem;
+  }
+  
+  .exitButton:hover {
+    background-color: rgb(148, 43, 43);
+  }
+  
+  .side-panelbtn:hover {
+    background-color: rgba(14, 121, 167, 0.374);
+  }
+  
+  .chat-area {
+    width: 75%;
+    overflow-y: auto;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    max-width: 50%;
+    margin: 0.2rem;
+    padding: 0.7rem;
+    border-radius: 2rem;
+    background-color: rgba(28, 113, 150, 0.247);
+    align-self: flex-start;
+  }
+  
+  .sender {
+    align-self: flex-end;
+    background-color: rgba(237, 70, 9, 0.765);
+    box-shadow: 0rem 0.12rem 0.6rem rgba(205, 41, 12, 0.628);
+  }
+  
+  .name {
+    font-size: 0.8em;
+    color: #555;
+    margin-bottom: 0.2rem;
+  }
+  
+  .text {
+    font-size: 1em;
+  }
+  
+  .image {
+    max-height: 20rem;
+  }
+  
+  .section-nav {
+    width: 100%;
+    background-color: rgb(224, 215, 203);
+    float: left;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .message-form {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  #inputtext {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .message-form button {
+    background-color: rgba(11, 154, 142, 0.895);
+    color: white;
+    padding: 0.7rem 0.9rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .message-form button:hover {
+    background-color: rgb(4, 120, 110);
+  }
+  
+  dialog {
+    border: none;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem;
+    box-shadow: 0 0.6rem 0.8rem rgba(28, 113, 150, 0.247);
+    overflow-y: auto;
+    max-height: 80%;
+    max-width: 80%;
+  }
+  
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .closeDialog {
+    color: red;
+    border: none;
+    padding: 0;
+    position: fixed;
+  }
+  
+  .dialogbtn {
+    background-color: rgba(11, 154, 142, 0.895);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+  }
+  
+  .dialogbtn:hover {
+    background-color: rgb(4, 120, 110);
+  }
+  
+  #dialogForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formItem {
+    margin-bottom: 0.5rem;
+  }
+  
+  #infoTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+  }
+  
+  td {
+    border-bottom: 0.1rem solid #000;
+    text-align: left;
+    padding: 1rem;
+  }
+  
+  td:last-child button {
+    margin-left: 0;
+    vertical-align: baseline;
+  }
+  
+  .removeButton {
+    background-color: rgba(237, 13, 13, 0.776);
+    border-radius: 0.5rem;
+    border: none;
+    margin-top: 1px;
+    margin-bottom: 0px;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .removeButton:hover {
+    background-color: rgba(239, 8, 8, 0.991);
+  }
+  
+  .adminButton {
+    background-color: rgba(12, 58, 225, 0.797);
+    border-radius: 0.5rem;
+    border: none;
+    margin-top: 1px;
+    margin-bottom: 0px;
+    margin-right: 0.3rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .adminButton:hover {
+    background-color: rgba(0, 55, 255, 0.954);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    aside {
+      width: 35%;
+    }
+    
+    .chat-area {
+      width: 65%;
+    }
+    
+    .message-form {
+      width: 65%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    aside {
+      width: 100%;
+      height: auto;
+    }
+    
+    .chat-area {
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+    .message-form {
+      width: 100%;
+      padding: 10px 5px;
+    }
+  
+    .top-nav {
+      flex-direction: column;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    aside {
+      width: 30%;
+    }
+    
+    .chat-area {
+      width: 70%;
+    }
+    
+    .message-form {
+      width: 70%;
+    }
+  }
+  
