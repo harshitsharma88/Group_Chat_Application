@@ -211,6 +211,7 @@ body {
 
 .image{
   max-height: 20rem;
+  max-width: 100%;
 }
 
 .section-nav{
@@ -264,6 +265,12 @@ body {
     background-color: rgb(4, 120, 110)
 
   }
+
+  #selectfile{
+    width: 10%;
+  }
+
+  
 
 
   /* --------Dialog-Box-------- */
