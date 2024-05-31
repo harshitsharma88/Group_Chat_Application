@@ -18,6 +18,10 @@ const messages= database.define('messages',{
     message:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    isURL:{
+        type:DataTypes.BOOLEAN
+
     }
 
 })

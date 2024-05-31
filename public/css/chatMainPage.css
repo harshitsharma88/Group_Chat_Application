@@ -209,6 +209,10 @@ body {
   font-size: 1em;
 }
 
+.image{
+  max-height: 20rem;
+}
+
 .section-nav{
   width: 100%;
   /* position: fixed; */
@@ -239,7 +243,7 @@ body {
     width: 70%;
   }
   
-  .message-form input {
+  #inputtext{
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;

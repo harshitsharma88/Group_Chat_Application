@@ -2,13 +2,14 @@ const Users= require('../models/users');
 const messages = require('../models/messages');
 const { where } = require('sequelize');
 
-async function storeMessage(user,message,groupId){
+async function storeMessage(user,message,groupId,isURL){
     try {
         await messages.create({
             name:user.name,
             message:message,
             userId:user.id,
-            groupId:groupId
+            groupId:groupId,
+            isURL:isURL
         })
 
         return;

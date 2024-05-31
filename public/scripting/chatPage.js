@@ -9,7 +9,7 @@ const table= document.querySelector('#infoTable');
 
 document.addEventListener('DOMContentLoaded',getAllGroups);
 
-socket.on('errorResponse',(error)=>alert("Errorr Occurred"));
+socket.on('errorResponse',(error)=>alert(error));
 
 /////-Welcome Text-///////
 document.querySelector('#username').textContent=`${username}`
@@ -54,13 +54,24 @@ async function getGroupMessages(groupId){
         section.innerHTML='';
         groupMessages.data.forEach(element=>{
             if(element.self){
-                selfMessage(element);
-                
 
+                if(element.isURL){
+                    selfPhoto(element);
+
+                }else{
+                    selfMessage(element);
+                }
+                
 
             }
             else{
-                othersMessage(element);
+                if(element.isURL){
+                    othersPhoto(element)
+                }
+                else{
+                    othersMessage(element);
+                }
+                
 
             }
         })
@@ -98,6 +109,7 @@ document.querySelector('.logout-btn').addEventListener('click',()=>{
 async function scrollChatSection(){
    
    section.scrollTop=section.scrollHeight
+   document.querySelector('body').scrollTop=document.querySelector('body').scrollHeight
 
 }
 
@@ -132,7 +144,7 @@ async function createGroup(event){
         
     } catch (error) {
         console.log(error);
-        // alert(error.response.data.message)
+        alert(error)
 
         
     }
@@ -227,6 +239,7 @@ async function addMember(event){
     members.forEach((member,index,list)=>{list[index]=member.trim()});
     const table= document.querySelector('#infoTable');
     try {
+        
         const response= await axios.post('http://34.228.115.60/group/addmembers',{groupId:groupId,members:members},
         {headers:{authorization:token}} 
         );
@@ -234,33 +247,10 @@ async function addMember(event){
 
         const array= response.data;
 
-      /*  array.forEach(element=>{
-
-            const tr= document.createElement('tr');
-            tr.setAttribute('id',element.id);
-            tr.innerHTML=`<td>${element.name}</td><td>${element.email}<td>`;
-
-            const adminButton=document.createElement('button');
-            adminButton.className='adminButton'
-            adminButton.textContent='Make Admin';
-            adminButton.addEventListener('click',(event)=>{makeAdmin(event,groupId)});
-            const td1=document.createElement('td');
-            td1.appendChild(adminButton)
-            tr.appendChild(td1);
-
-            const removeButton=document.createElement('button');
-            removeButton.className='removeButton'
-            removeButton.textContent='Remove';
-            removeButton.addEventListener('click',(event)=>{removeGroup(event,groupId)});
-            const td2=document.createElement('td');
-            td2.appendChild(removeButton)
-            tr.appendChild(td2);
-
-            table.appendChild(tr);
-
-        })  */
 
         addMemberToDialogTable(array,groupId);
+
+        event.target.membersName.value='';
 
         
     } catch (error) {
@@ -447,49 +437,102 @@ async function removeAdmin(event,groupId){
 
 ////////--- Send and Recieve Messages ---////////////
 
-// async function sendmessage(event){
-//     event.preventDefault();
-//     const message=event.target.message.value.trim();
-
-//     if(message!==''){
-
-
-//     event.target.message.value='';
-//     inputText.focus();
-
-//     const response = await axios.post('http://34.228.115.60/message/postmessage',
-//                 {message:message,name:username},
-//                 {headers:{authorization:token}});
-
-//     }
-
-// }
-
 socket.on('receivedMessage',(data)=>{
+    console.log(data);
     const groupId=localStorage.getItem('groupId');
     
 
     if(groupId==data.groupId){
 
-        if(token==data.token){
+        if(data.isURL){
+            if(token==data.token){
+                    selfPhoto(data);
+            }
+            else{
+
+                    othersPhoto(data);
+
+            }
+
+        }
+
+        else{
+            if(token==data.token){
             selfMessage(data);
         }
 
         else{
             othersMessage(data);
         }
+    }
 
     }
 })
 
+///////////-Display Photo--///////////
+
+function othersPhoto(object){
+    const other= document.createElement('div');
+    other.classList='message other'
+
+    const receivername= document.createElement('div');
+    receivername.className='name';
+    receivername.textContent=`${object.name}`;
+
+    const imgElement = document.createElement('img');
+    imgElement.src = object.message;
+    imgElement.className='image';
+
+    other.appendChild(receivername);
+    other.appendChild(imgElement);
+
+    section.appendChild(other);
+
+    scrollChatSection();
+}
+
+
+function selfPhoto(object){
+
+    const sender = document.createElement('div');
+    sender.classList='message sender';
+
+    const imgElement = document.createElement('img');
+    imgElement.src = object.message;
+    imgElement.className='image';
+
+    sender.appendChild(imgElement);
+
+    section.appendChild(sender);
+
+    scrollChatSection();
+
+}
+
+
 document.querySelector('.message-form').addEventListener('submit',sendMessage);
 
-function sendMessage(event){
+async function sendMessage(event){
     event.preventDefault();
-    const message= event.target.message.value.trim()
+    const message= event.target.message.value.trim();
+    const file = document.querySelector('#selectfile').files[0];
+    document.querySelector('#selectfile').value='';
+    const groupId= localStorage.getItem('groupId');
+    console.log(file);
+    console.log(message);
 
-    if(message!==''){
-        const groupId= localStorage.getItem('groupId');
+    if(file){
+        const formData= new FormData();
+        formData.append('imageupload',file);
+        formData.append('token',token);
+        formData.append('groupId',groupId);
+        await axios.post('http://34.228.115.60/upload',{imageupload:file,groupId,token},
+        {headers:{authorization:token,"Content-Type": "multipart/form-data",}} 
+        )
+
+    }
+
+    if(message!==''){  
         socket.emit('sendMessage',{message: message,groupId,token});
         document.querySelector('#inputtext').value='';
     }
@@ -498,8 +541,6 @@ function sendMessage(event){
 
 
 //////////-- Display Messages in Chat-Box --////////////
-
-
 
 
 function othersMessage(object){

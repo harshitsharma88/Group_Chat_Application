@@ -58,11 +58,18 @@
      
         <!-- <div class="message sender">
             <div class="text">Hello! How are you?</div>
-        </div>
+            <img src="https://harshitexpansetrackernode.s3.amazonaws.com/photo_2024-03-23_22-06-25.jpg1717152269712" class='image'  alt="">
+        </div> -->
 
-        <div class="message other">
+       
+          
+       
+        
+
+       <!-- <div class="message other">
             <div class="name">Alice</div>
             <div class="text">I'm good, thanks! How about you?</div>
+            <img src="https://harshitexpansetrackernode.s3.amazonaws.com/photo_2024-03-23_22-06-25.jpg1717152269712" class='image'  alt="">
         </div> -->
     
    
@@ -75,8 +82,9 @@
 
 
   </main>
-  <form class="message-form">
-    <input type="text" placeholder="Type your message..." name="message" id="inputtext">
+  <form class="message-form" enctype="multipart/form-data">
+    <input id='selectfile' type="file" name="imageupload" accept="image/*"/>
+    <input type="text" placeholder="Type your message..." name="message" id="inputtext"/>
     <button type="submit">Send</button>
   </form>
 

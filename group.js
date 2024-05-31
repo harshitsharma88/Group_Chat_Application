@@ -12,8 +12,12 @@ const io = require('socket.io')(http);
 
 
 
-/////-- Condfiguring all the packagaes functions--///////
 
+app.use(function (req, res, next) {
+    req.io = io;
+    next();
+  });
+/////-- Condfiguring all the packagaes functions--///////
 
 app.use(cors({origin:'*'}));
 app.use(express.static('public'));
@@ -28,6 +32,7 @@ const userLoginRoute=require('./routes/userLoginRoute');
 const chatPageRoute= require('./routes/chatPageRoute');
 const messageRoute=require('./routes/messageRoute');
 const groupRoute= require('./routes/groupRoutes');
+const uploadRoute= require('./routes/uploadRoute');
 
 
 
@@ -37,6 +42,7 @@ app.use('/',userLoginRoute);
 app.use('/chatpage',chatPageRoute);
 app.use('/message',messageRoute);
 app.use('/group',groupRoute);
+app.use('/upload',uploadRoute)
 
 
 
@@ -86,12 +92,13 @@ sequelize.sync({force:true})
             try {
                 const {message,groupId}=data;
                 const user = await socketAuthenticate(data);
-                await storeMessage(user,message,groupId);
+
+                if(message.length>0){
+                await storeMessage(user,message,groupId,false);
                 data.name=user.name;
+                data.isURL=false;
                 io.emit('receivedMessage',data);
-
-
-                
+                }  
                 
                 
             } catch (error) {
