@@ -1,9 +1,3 @@
-const item =localStorage.getItem('token');
-const username=localStorage.getItem('username')
-if(item&&username){
-    location.href='/chatpage'
-}
-
 async function handleSignup(event){
 
     event.preventDefault();
@@ -21,7 +15,7 @@ async function handleSignup(event){
     console.log(obj);
 
     try {
-       const res= await axios.post('http:34.228.115.60/signup',obj);
+       const res= await axios.post('http://34.228.115.60/signup',obj);
        console.log(res);
         alert(res.data.message);
         
@@ -50,7 +44,7 @@ async function handleLogin(event){
 
 
     try {
-        const res= await axios.post('http:34.228.115.60/login',obj);
+        const res= await axios.post('http://34.228.115.60/login',obj);
         console.log(res);
         
         localStorage.setItem("token",res.data.token);
