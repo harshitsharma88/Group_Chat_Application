@@ -9,6 +9,7 @@ const bodyparser = require('body-parser');
 const cors = require('cors')
 const http=require('http').Server(app);
 const io = require('socket.io')(http);
+const {CronJob}= require('cron')
 
 
 
@@ -46,7 +47,6 @@ app.use('/upload',uploadRoute)
 
 
 
-
 //////////--Database--//////////////
 const sequelize=require('./utils/database');
 
@@ -73,6 +73,13 @@ Groups.hasMany(Messages);
 ///////--Socket Events--///////
 const socketAuthenticate=require('./middleware/socketAuthenticate');
 const {storeMessage}= require('./controllers/messageController');
+
+
+
+///////--CRON Events--///////
+const archiveAllMessages=require('./services/cronJob');
+const job = new CronJob('0 0 * * *', archiveAllMessages, null, false, 'Asia/Kolkata');
+job.start();
 
 
 
@@ -103,7 +110,7 @@ sequelize.sync({force:true})
                 
             } catch (error) {
                 console.log(error);
-                io.emit('errorResponse',(error))                
+                io.emit('errorResponse',('Error in Sending Message'))                
             }
            
 

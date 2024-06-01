@@ -9,10 +9,26 @@ const table= document.querySelector('#infoTable');
 
 document.addEventListener('DOMContentLoaded',getAllGroups);
 
+//////--Socket Events on error--///////
 socket.on('errorResponse',(error)=>alert(error));
 
 /////-Welcome Text-///////
 document.querySelector('#username').textContent=`${username}`
+
+///////-Logout-Button-/////
+document.querySelector('.logout-btn').addEventListener('click',()=>{
+    localStorage.removeItem('token');
+    location.replace('http://34.228.115.60')
+});
+
+////////---Scroll Chat Section Whenevr new message receives---//////////
+
+async function scrollChatSection(){
+   
+    section.scrollTop=section.scrollHeight
+    document.querySelector('body').scrollTop=document.querySelector('body').scrollHeight
+ 
+ }
 
 //////---Get All Groups of Current User---/////
 async function getAllGroups(event){
@@ -32,120 +48,6 @@ async function getAllGroups(event){
 
         
     } catch (error) {
-        
-    }
-}
-
-
-///////---Clear All and Show Global Chats---///////
-document.querySelector('#close-group').addEventListener('click',showGlobalMessages)
-
-async function showGlobalMessages(event){
-    document.querySelector('#display-group-name').textContent='Global ';
-    localStorage.setItem('groupId',1);
-    getGroupMessages(1);
-}
-
-
-///////////-- Show Messages of Group --///////
-async function getGroupMessages(groupId){
-    try {
-        const groupMessages= await axios.get(`http://34.228.115.60/message/getmessage/${groupId}`,{headers:{authorization:token}});
-        section.innerHTML='';
-        groupMessages.data.forEach(element=>{
-            if(element.self){
-
-                if(element.isURL){
-                    selfPhoto(element);
-
-                }else{
-                    selfMessage(element);
-                }
-                
-
-            }
-            else{
-                if(element.isURL){
-                    othersPhoto(element)
-                }
-                else{
-                    othersMessage(element);
-                }
-                
-
-            }
-        })
-    } catch (error) {
-        console.log(error);
-        alert("Error occurred");
-        
-    }
-}
-
-
-///////-Logout-Button-/////
-document.querySelector('.logout-btn').addEventListener('click',()=>{
-    localStorage.removeItem('token');
-    location.replace('http://34.228.115.60')
-});
-
-//  setInterval(async()=>{
-//     const response= await axios.get('http://34.228.115.60/message/getmessage',{headers:{authorization:token}});
-//     section.innerHTML='';
-//     response.data.forEach(element=>{
-//         if(element.self){
-//             senderMessage(element);
-
-//         }
-//         else{
-//             receiverMessage(element);
-
-//         }
-//     })
-// },1000)
-
-////////---Scroll Chat Section Whenevr new message receives---//////////
-
-async function scrollChatSection(){
-   
-   section.scrollTop=section.scrollHeight
-   document.querySelector('body').scrollTop=document.querySelector('body').scrollHeight
-
-}
-
-/////////////------Create Group And Add the info In Side Panel------///////////
-
-const dialogForm= document.querySelector('#dialogForm');
-dialogForm.addEventListener('submit',createGroup);
-
-async function createGroup(event){
-    event.preventDefault();
-    const array=event.target.membersName.value.split(',');
-    array.forEach((element,index,list)=>{list[index]=element.trim()});
-
-    const groupInfo={
-        groupName:event.target.groupName.value,
-        members:array
-    }
-
-    try {
-
-        const response= await axios.post('http://34.228.115.60/group/creategroup',
-        groupInfo,
-        {headers:{authorization:token}});
-
-        showGroups(response.data.groupName,response.data.groupId,true)
-
-        document.getElementById('myDialog').close();
-
-        
-
-
-        
-    } catch (error) {
-        console.log(error);
-        alert(error)
-
         
     }
 }
@@ -192,9 +94,46 @@ function showGroups(groupName,groupId,isAdmin){
 
 }
 
-//////////---Edit Group Dialog Box-----//////
+/////////////------Create Group And Add the info In Side Panel------///////////
+
+const dialogForm= document.querySelector('#dialogForm');
+dialogForm.addEventListener('submit',createGroup);
+
+async function createGroup(event){
+    event.preventDefault();
+    const array=event.target.membersName.value.split(',');
+    array.forEach((element,index,list)=>{list[index]=element.trim()});
+
+    const groupInfo={
+        groupName:event.target.groupName.value,
+        members:array
+    }
+
+    try {
+
+        const response= await axios.post('http://34.228.115.60/group/creategroup',
+        groupInfo,
+        {headers:{authorization:token}});
+
+        showGroups(response.data.groupName,response.data.groupId,true)
+
+        document.getElementById('myDialog').close();
+
+        
 
 
+        
+    } catch (error) {
+        console.log(error);
+        alert(error)
+
+        
+    }
+}
+
+////////-Group Related All functions Removing, Exiting, Making Admin, Removing Admin---/////////
+
+            //////////---Edit Group Dialog Box-----//////
 
 
 async function editGroup(event){
@@ -228,41 +167,12 @@ async function editGroup(event){
 
 }
 
-/////--Add New Member---////
-document.querySelector('#editGroupForm').addEventListener('submit',addMember);
-
-async function addMember(event){
-    event.preventDefault();
-    const groupId= event.target.className;
-    
-    const members= event.target.membersName.value.split(',');
-    members.forEach((member,index,list)=>{list[index]=member.trim()});
-    const table= document.querySelector('#infoTable');
-    try {
-        
-        const response= await axios.post('http://34.228.115.60/group/addmembers',{groupId:groupId,members:members},
-        {headers:{authorization:token}} 
-        );
-
-
-        const array= response.data;
-
-
-        addMemberToDialogTable(array,groupId);
-
-        event.target.membersName.value='';
-
-        
-    } catch (error) {
-        console.log(error);
-        alert(error);
-        
-    }
-    
-
-}
-
-//////--Add Member to Dialog Table---//////
+////////////////--Add Member to Dialog Table---///////////////////////
+            
+        /* As admin clicks on group edit it will fetch
+           all members and their admin status and add 
+           to the table 
+        */
 
 function addMemberToDialogTable(array,groupId){
 
@@ -329,7 +239,45 @@ function addMemberToDialogTable(array,groupId){
 
 }
 
-/////////-Remove From Group-////////
+    //////////--Add New Member---////////
+
+document.querySelector('#editGroupForm').addEventListener('submit',addMember);
+
+async function addMember(event){
+    event.preventDefault();
+    const groupId= event.target.className;
+    
+    const members= event.target.membersName.value.split(',');
+    members.forEach((member,index,list)=>{list[index]=member.trim()});
+    const table= document.querySelector('#infoTable');
+    try {
+        
+        const response= await axios.post('http://34.228.115.60/group/addmembers',{groupId:groupId,members:members},
+        {headers:{authorization:token}} 
+        );
+
+
+        const array= response.data;
+
+
+        addMemberToDialogTable(array,groupId);
+
+        event.target.membersName.value='';
+
+        
+    } catch (error) {
+        console.log(error);
+        alert(error);
+        
+    }
+    
+
+}
+
+
+
+////////////-Remove From Group-////////////
+    /* Removing or self exiting group */
 
 async function exitGroup(event,groupId){
 
@@ -385,6 +333,9 @@ async function removeGroup(event,groupId){
 
 }
 
+
+//////--Make a Member admin--//////
+
 async function makeAdmin(event,groupId){
     const userId= event.target.parentNode.parentNode.getAttribute('id');
     try {
@@ -406,10 +357,10 @@ async function makeAdmin(event,groupId){
         alert(error)
         
     }
-    
-
 
 }
+
+////////- Remove Admin privileges-//////
 
 async function removeAdmin(event,groupId){
     const userId= event.target.parentNode.parentNode.getAttribute('id');
@@ -434,6 +385,57 @@ async function removeAdmin(event,groupId){
     }
 
 }
+
+
+    /* --- Messages Displaying Related All Functions ---- */
+
+
+///////////-- Show Messages of Group --///////
+
+async function getGroupMessages(groupId){
+    try {
+        const groupMessages= await axios.get(`http://34.228.115.60/message/getmessage/${groupId}`,{headers:{authorization:token}});
+        section.innerHTML='';
+        groupMessages.data.forEach(element=>{
+            if(element.self){
+
+                if(element.isURL){
+                    selfPhoto(element);
+
+                }else{
+                    selfMessage(element);
+                }
+                
+
+            }
+            else{
+                if(element.isURL){
+                    othersPhoto(element)
+                }
+                else{
+                    othersMessage(element);
+                }
+                
+
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        alert("Error occurred");
+        
+    }
+}
+
+///////---Clear All and Show Global Chats---///////
+document.querySelector('#close-group').addEventListener('click',showGlobalMessages)
+
+async function showGlobalMessages(event){
+    document.querySelector('#display-group-name').textContent='Global ';
+    localStorage.setItem('groupId',1);
+    getGroupMessages(1);
+}
+
+
 
 ////////--- Send and Recieve Messages ---////////////
 
@@ -615,5 +617,20 @@ document.getElementById('openDialog').addEventListener('click', function() {
 document.querySelector('#closeInfoDialog').addEventListener('click',function(){
     document.querySelector('#groupInfoDialog').close();
 })
+
+//  setInterval(async()=>{
+//     const response= await axios.get('http://34.228.115.60/message/getmessage',{headers:{authorization:token}});
+//     section.innerHTML='';
+//     response.data.forEach(element=>{
+//         if(element.self){
+//             senderMessage(element);
+
+//         }
+//         else{
+//             receiverMessage(element);
+
+//         }
+//     })
+// },1000)
 
 
