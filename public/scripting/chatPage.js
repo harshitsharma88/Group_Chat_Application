@@ -18,7 +18,7 @@ document.querySelector('#username').textContent=`${username}`
 ///////-Logout-Button-/////
 document.querySelector('.logout-btn').addEventListener('click',()=>{
     localStorage.removeItem('token');
-    location.replace('http://34.228.115.60')
+    location.replace('http:34.228.115.60')
 });
 
 ////////---Scroll Chat Section Whenevr new message receives---//////////
@@ -33,7 +33,7 @@ async function scrollChatSection(){
 //////---Get All Groups of Current User---/////
 async function getAllGroups(event){
     try {
-        const response= await axios.get('http://34.228.115.60/group/getallgroups',
+        const response= await axios.get('http:34.228.115.60/group/getallgroups',
         {headers:{authorization:token}});
 
         const allGroups= response.data;
@@ -111,7 +111,7 @@ async function createGroup(event){
 
     try {
 
-        const response= await axios.post('http://34.228.115.60/group/creategroup',
+        const response= await axios.post('http:34.228.115.60/group/creategroup',
         groupInfo,
         {headers:{authorization:token}});
 
@@ -140,7 +140,7 @@ async function editGroup(event){
     const groupId = event.target.getAttribute('id').split('-')[1];
     try {
 
-        const response = await axios.get(`http://34.228.115.60/group/getmembers/${groupId}`,
+        const response = await axios.get(`http:34.228.115.60/group/getmembers/${groupId}`,
         {headers:{authorization:token}}
         );
 
@@ -252,7 +252,7 @@ async function addMember(event){
     const table= document.querySelector('#infoTable');
     try {
         
-        const response= await axios.post('http://34.228.115.60/group/addmembers',{groupId:groupId,members:members},
+        const response= await axios.post('http:34.228.115.60/group/addmembers',{groupId:groupId,members:members},
         {headers:{authorization:token}} 
         );
 
@@ -283,7 +283,7 @@ async function exitGroup(event,groupId){
 
     try {
         const response= await axios({
-            url:'http://34.228.115.60/group/exitgroup',
+            url:'http:34.228.115.60/group/exitgroup',
             data:{groupId:groupId},
             method:'delete',
             headers:{authorization:token}
@@ -307,7 +307,7 @@ async function removeGroup(event,groupId){
     console.log(groupId);
     try {
         await axios(
-            {url:'http://34.228.115.60/group/deletemember',
+            {url:'http:34.228.115.60/group/deletemember',
             data:{userId:userId,groupId:groupId},
             method:'delete'
         })
@@ -344,7 +344,7 @@ async function makeAdmin(event,groupId){
             return;
         }
         await axios(
-            {url:'http://34.228.115.60/group/makeadmin',
+            {url:'http:34.228.115.60/group/makeadmin',
             data:{userId:userId,groupId:groupId},
             method:'put'
         })
@@ -370,7 +370,7 @@ async function removeAdmin(event,groupId){
             return;
         }
         await axios(
-            {url:'http://34.228.115.60/group/removeadmin',
+            {url:'http:34.228.115.60/group/removeadmin',
             data:{userId:userId,groupId:groupId},
             method:'put'
         })
@@ -394,7 +394,7 @@ async function removeAdmin(event,groupId){
 
 async function getGroupMessages(groupId){
     try {
-        const groupMessages= await axios.get(`http://34.228.115.60/message/getmessage/${groupId}`,{headers:{authorization:token}});
+        const groupMessages= await axios.get(`http:34.228.115.60/message/getmessage/${groupId}`,{headers:{authorization:token}});
         section.innerHTML='';
         groupMessages.data.forEach(element=>{
             if(element.self){
@@ -457,7 +457,7 @@ async function sendMessage(event){
         document.querySelector('#inputtext').value='';
         document.querySelector('#inputtext').removeAttribute('readonly')
 
-        await axios.post('http://34.228.115.60/upload',{imageupload:file,groupId,token},
+        await axios.post('http:34.228.115.60/upload',{imageupload:file,groupId,token},
         {headers:{authorization:token,"Content-Type": "multipart/form-data",}} 
         )
         event.target.message.value='';
@@ -528,7 +528,9 @@ function othersPhoto(object){
 
     section.appendChild(other);
 
-    scrollChatSection();
+    setTimeout(()=>{
+        scrollChatSection()
+    },3000)
 }
 
 
@@ -546,7 +548,9 @@ function selfPhoto(object){
 
     section.appendChild(sender);
 
-    scrollChatSection();
+    setTimeout(()=>{
+        scrollChatSection()
+    },3000)
 
 }
 
@@ -623,7 +627,7 @@ document.querySelector('#closeInfoDialog').addEventListener('click',function(){
 })
 
 //  setInterval(async()=>{
-//     const response= await axios.get('http://34.228.115.60/message/getmessage',{headers:{authorization:token}});
+//     const response= await axios.get('http:34.228.115.60/message/getmessage',{headers:{authorization:token}});
 //     section.innerHTML='';
 //     response.data.forEach(element=>{
 //         if(element.self){
