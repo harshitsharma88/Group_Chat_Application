@@ -436,8 +436,46 @@ async function showGlobalMessages(event){
 }
 
 
+//////--Send A Photo Or Message
 
-////////--- Send and Recieve Messages ---////////////
+document.querySelector('.message-form').addEventListener('submit',sendMessage);
+
+async function sendMessage(event){
+    event.preventDefault();
+    const message= event.target.message.value.trim();
+    const file = document.querySelector('#selectfile').files[0];
+    document.querySelector('#selectfile').value='';
+    const groupId= localStorage.getItem('groupId');
+    console.log(file);
+    console.log(message);
+
+    if(file){
+        const formData= new FormData();
+        formData.append('imageupload',file);
+        formData.append('token',token);
+        formData.append('groupId',groupId);
+        document.querySelector('#inputtext').value='';
+        document.querySelector('#inputtext').removeAttribute('readonly')
+
+        await axios.post('http://34.228.115.60/upload',{imageupload:file,groupId,token},
+        {headers:{authorization:token,"Content-Type": "multipart/form-data",}} 
+        )
+        event.target.message.value='';
+        return;
+
+    }
+
+    if(message!==''){  
+        socket.emit('sendMessage',{message: message,groupId,token});
+        document.querySelector('#inputtext').value='';
+    }
+    
+}
+
+
+
+
+////////--- Recieve Messages ---////////////
 
 socket.on('receivedMessage',(data)=>{
     console.log(data);
@@ -498,6 +536,7 @@ function selfPhoto(object){
 
     const sender = document.createElement('div');
     sender.classList='message sender';
+    sender.style.background='none'
 
     const imgElement = document.createElement('img');
     imgElement.src = object.message;
@@ -516,41 +555,6 @@ document.querySelector('#selectfile').addEventListener('change',(event)=>{
     document.querySelector('#inputtext').readOnly=true;
 })
    
-
-
-document.querySelector('.message-form').addEventListener('submit',sendMessage);
-
-async function sendMessage(event){
-    event.preventDefault();
-    const message= event.target.message.value.trim();
-    const file = document.querySelector('#selectfile').files[0];
-    document.querySelector('#selectfile').value='';
-    const groupId= localStorage.getItem('groupId');
-    console.log(file);
-    console.log(message);
-
-    if(file){
-        const formData= new FormData();
-        formData.append('imageupload',file);
-        formData.append('token',token);
-        formData.append('groupId',groupId);
-        document.querySelector('#inputtext').value='';
-        document.querySelector('#inputtext').removeAttribute('readonly')
-
-        await axios.post('http://34.228.115.60/upload',{imageupload:file,groupId,token},
-        {headers:{authorization:token,"Content-Type": "multipart/form-data",}} 
-        )
-        event.target.message.value='';
-        return;
-
-    }
-
-    if(message!==''){  
-        socket.emit('sendMessage',{message: message,groupId,token});
-        document.querySelector('#inputtext').value='';
-    }
-    
-}
 
 
 //////////-- Display Messages in Chat-Box --////////////
